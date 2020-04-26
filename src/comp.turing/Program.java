@@ -1,32 +1,29 @@
 package comp.turing;
 
-public class Program<T> {
+public abstract class Program<T,E> {
 
-    private final InstructionCard<T>[] instructionCards;
+    private T[] initState;
 
-    private final T[] initState;
+    private T blank;
 
-    private int numberOperations;
-
-    @SafeVarargs
-    public Program(T[] initState, InstructionCard<T>... instructionCards) {
+    public Program(T[] initState, T blank) {
         this.initState = initState;
-        this.instructionCards = instructionCards;
-        this.initProgram();
+        this.blank = blank;
     }
 
-    private void initProgram() {
-        this.numberOperations = 0;
-        for (InstructionCard<T> i : this.instructionCards) {
-            i.setNextInstructionCard(instructionCards[i.getNextInstructionCardNumber()]);
-        }
+    public Program(T blank) {
+        this.blank = blank;
     }
 
-    public T[] getInitState() {
+    protected T[] getInitState() {
         return this.initState;
     }
 
-    protected void start(BandMemory<T> bandMemory){
+    public T getBlank(){
+        return this.blank;
+    }
+
+    protected void start(Machine<T,E> machine){
         System.out.println("Starting the program");
     }
 

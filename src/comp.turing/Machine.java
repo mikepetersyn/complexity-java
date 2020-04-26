@@ -1,35 +1,37 @@
 package comp.turing;
 
-public class Machine<T> {
+import java.util.Stack;
 
-    private final BandMemory<T> bandMemory;
+public class Machine<T, E> {
 
-    private final Program<T> program;
+    private BandMemory<T> bandMemory;
 
-    private final int leastBit;
+    private Stack<E> stateSpace;
 
-    private boolean haltState;
+    private final Program<T,E> program;
 
-    private int stateSpace;
-
-    public Machine(Program<T> program) {
-        this.bandMemory = new BandMemory<T>(program.getInitState());
+    public Machine(Program<T,E> program) {
         this.program = program;
-        this.leastBit = bandMemory.getSize() - 1;
-        this.haltState = false;
+        this.bandMemory = new BandMemory<T>(program.getInitState(), program.getBlank());
+        this.stateSpace = new Stack<>();
     }
 
-    public Machine(Program<T> program, int size) {
-        this.bandMemory = new BandMemory(program.getInitState(), size);
+    public Machine(Program<T,E> program, int size) {
         this.program = program;
-        this.leastBit = bandMemory.getSize() - 1;
-        this.haltState = false;
+        this.bandMemory = new BandMemory<T>(program.getBlank(), size);
+        this.stateSpace = new Stack<>();
     }
 
-    public void startProgram(){
-        this.program.start(this.bandMemory);
+    public void startProgram() {
+        this.program.start(this);
     }
 
+    public BandMemory<T> getBandMemory() {
+        return this.bandMemory;
+    }
 
+    public Stack<E> getStateSpace() {
+        return this.stateSpace;
+    }
 
 }

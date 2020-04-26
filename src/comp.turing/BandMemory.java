@@ -1,34 +1,35 @@
 package comp.turing;
 
-public class BandMemory<T> {
+import java.util.ArrayList;
+import java.util.Arrays;
 
-    private final int size;
 
-    private T[] cells;
+public class BandMemory<T> implements Iterable<T> {
 
-    public BandMemory(T[] initState) {
-        this.size = initState.length;
-        this.cells = initState.clone();
+    private ArrayList<T> cells;
+
+    public BandMemory(T[] initState, T blank) {
+        this.cells = new ArrayList<T>();
+        this.cells.add(blank);
+        this.cells.addAll(Arrays.asList(initState));
+        this.cells.add(blank);
     }
 
-    public BandMemory(T[] initState, int size) {
-        this.size = size;
-        this.initCells(initState, size);
-    }
-
-    private void initCells(T[] initState, int size) {
-        this.cells = initState.clone();
-        for (int i = initState.length; i <= size; i++) {
-            this.cells[i] = null;
+    public BandMemory(T blank, int size) {
+        this.cells = new ArrayList<T>();
+        for (int i = 0; i < size; i++) {
+            this.cells.add(blank);
         }
     }
 
-    public T read(int index){
-        return this.cells[index];
+    ArrayList<T> getCells() {
+        return this.cells;
     }
 
-    public int getSize() {
-        return size;
+
+    @Override
+    public ReadWriteHead<T> iterator() {
+        return new ReadWriteHead<>(this);
     }
 
 }
