@@ -10,7 +10,7 @@ public class ReadWriteHead<T> implements Iterator<T> {
 
     private int numberOperations;
 
-    ArrayList<T> cells;
+    private ArrayList<T> cells;
 
     public ReadWriteHead(BandMemory<T> cells) {
         this.current = 0;

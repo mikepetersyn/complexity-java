@@ -7,6 +7,7 @@ import java.util.Stack;
 public class Counting extends Program<Integer, CountingState> {
 
     public Counting(Integer[] initState) {
+        // 8 is blank char
         super(initState, 8);
     }
 

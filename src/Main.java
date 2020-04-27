@@ -19,7 +19,6 @@ public class Main {
 
 
         // busy beaver 3 example
-
         Busy3 busy3 = new Busy3();
 
         Machine<Integer, Busy3State> busy3Machine = new Machine<>(busy3,6);

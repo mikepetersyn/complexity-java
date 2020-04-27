@@ -7,6 +7,7 @@ import java.util.Stack;
 public class Busy3 extends Program<Integer, Busy3State> {
 
     public Busy3() {
+        // 8 is blank char
         super(8);
     }
 
